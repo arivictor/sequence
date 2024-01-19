@@ -1,4 +1,4 @@
-# Sequence
+![](./cover.png)
 
 Sequence is a flexible job execution tool designed to manage and run a series of tasks defined in a YAML configuration file. It allows for sequential and conditional execution of tasks (bash, python, javascript, anything available in the terminal!), making it an ideal choice for automating workflows.
 
