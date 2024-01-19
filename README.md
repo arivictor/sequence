@@ -33,7 +33,7 @@ Sequence is a flexible job execution tool designed to manage and run a series of
 3. Build the application:
 
     ```bash
-    go build -o sequence
+    go build -o sequence ./cmd/sequence
     ```
 
 ### Configuration
