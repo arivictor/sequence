@@ -58,7 +58,7 @@ func areJobNamesUnique(jobs []Job) bool {
 func handleJobError(job Job, config Config) error {
 	for _, errorHandler := range config.ErrorHandlers {
 		if errorHandler.Name == job.OnError {
-			log.Printf("execute : '%s' : error_handler '%s'\n", job.Name, errorHandler.Name)
+			log.Printf("execute : '%s' : error_handler : '%s'\n", job.Name, errorHandler.Name)
 			handlerCmd := exec.Command("bash", "-c", errorHandler.Command)
 			handlerOutput, handlerErr := handlerCmd.CombinedOutput()
 			fmt.Println(string(handlerOutput))
@@ -76,7 +76,7 @@ func handleJobError(job Job, config Config) error {
 func handleJobSuccess(job Job, config Config) error {
 	for _, successHandler := range config.SuccessHandlers {
 		if successHandler.Name == job.OnSuccess {
-			log.Printf("execute : '%s' : success_handler '%s'\n", job.Name, successHandler.Name)
+			log.Printf("execute : '%s' : success_handler : '%s'\n", job.Name, successHandler.Name)
 			handlerCmd := exec.Command("bash", "-c", successHandler.Command)
 			handlerOutput, handlerErr := handlerCmd.CombinedOutput()
 			fmt.Println(string(handlerOutput))

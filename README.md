@@ -52,7 +52,7 @@ This will run..
     go build -o sequence ./cmd/sequence
     ```
 
-### Example Configuration
+### Configuration Schema
 
 Define your jobs and their properties in a YAML file. Below is a template of how the configuration should look:
 
@@ -60,17 +60,21 @@ Define your jobs and their properties in a YAML file. Below is a template of how
 jobs:
   - name: "Job 1"
     command: "echo 'Hello World!' && exit 1"
-    exit_on_error: false
+    exit_on_error: false # quits the process on error
+    on_error: "handle_err"
+    on_success: "handle_success"
     skip: false
 
   - name: "Job 2"
     command: "node hello_world.js"
-    exit_on_error: true
-    error_handler: "error_handler"
     depends_on: ["Job 1"] # Won't run, depends on Job 1
 
+success_handlers:
+    - name: "handle_success"
+      command: "echo 'handling success..'"
+
 error_handlers:
-  - name: "error_handler"
+  - name: "handle_err"
     command: "echo 'handling an error..'"
 ```
 
