@@ -2,7 +2,7 @@ jobs:
   - name: "Job 1"
     command: "sleep 2 && echo 'Hello Exit Status 1!' && exit 1"
     exit_on_error: false
-    error_handler: "handle_job_1_error"
+    on_error: "handle_job_1_error"
     skip: false
 
   - name: "Job 2"
@@ -15,7 +15,12 @@ jobs:
 
   - name: "Job 4"
     command: "echo 'This will run..'"
+    on_success: "handle_job_4_success"
+
+success_handlers:
+  - name: "handle_job_4_success"
+    command: "echo 'Job 4 succeeded, handling success..'"
 
 error_handlers:
   - name: "handle_job_1_error"
-    command: "echo 'Job 1 failed, handling error..'"
+    command: "echo 'Job failed, handling error..'"

@@ -11,12 +11,13 @@ import (
 )
 
 type Job struct {
-	Name         string   `yaml:"name"`
-	Command      string   `yaml:"command"`
-	ExitOnError  bool     `yaml:"exit_on_error"`
-	ErrorHandler string   `yaml:"error_handler"`
-	Skip         bool     `yaml:"skip"`
-	DependsOn    []string `yaml:"depends_on"`
+	Name        string   `yaml:"name"`
+	Command     string   `yaml:"command"`
+	ExitOnError bool     `yaml:"exit_on_error"`
+	OnError     string   `yaml:"on_error"`
+	OnSuccess   string   `yaml:"on_success"`
+	Skip        bool     `yaml:"skip"`
+	DependsOn   []string `yaml:"depends_on"`
 }
 
 type ErrorHandler struct {
@@ -25,8 +26,9 @@ type ErrorHandler struct {
 }
 
 type Config struct {
-	Jobs          []Job          `yaml:"jobs"`
-	ErrorHandlers []ErrorHandler `yaml:"error_handlers"`
+	Jobs            []Job          `yaml:"jobs"`
+	ErrorHandlers   []ErrorHandler `yaml:"error_handlers"`
+	SuccessHandlers []ErrorHandler `yaml:"success_handlers"`
 }
 
 func executeJob(job Job, config Config) error {
@@ -55,9 +57,27 @@ func areJobNamesUnique(jobs []Job) bool {
 
 func handleJobError(job Job, config Config) error {
 	for _, errorHandler := range config.ErrorHandlers {
-		if errorHandler.Name == job.ErrorHandler {
+		if errorHandler.Name == job.OnError {
 			log.Printf("execute : '%s' : error_handler '%s'\n", job.Name, errorHandler.Name)
 			handlerCmd := exec.Command("bash", "-c", errorHandler.Command)
+			handlerOutput, handlerErr := handlerCmd.CombinedOutput()
+			fmt.Println(string(handlerOutput))
+
+			if handlerErr != nil {
+				return handlerErr
+			}
+			break
+		}
+	}
+
+	return nil
+}
+
+func handleJobSuccess(job Job, config Config) error {
+	for _, successHandler := range config.SuccessHandlers {
+		if successHandler.Name == job.OnSuccess {
+			log.Printf("execute : '%s' : success_handler '%s'\n", job.Name, successHandler.Name)
+			handlerCmd := exec.Command("bash", "-c", successHandler.Command)
 			handlerOutput, handlerErr := handlerCmd.CombinedOutput()
 			fmt.Println(string(handlerOutput))
 
@@ -133,6 +153,11 @@ func main() {
 				if job.ExitOnError {
 					log.Printf("exit : '%s' : exit_on_error is true\n", job.Name)
 					os.Exit(1)
+				}
+			} else {
+				err = handleJobSuccess(job, c)
+				if err != nil {
+					log.Printf("error : '%s' : on_success : %s\n", job.Name, err)
 				}
 			}
 			executedJobs[job.Name] = jobSuccess

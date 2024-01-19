@@ -1,6 +1,22 @@
 ![](./cover.png)
 
-Sequence is a flexible job execution tool designed to manage and run a series of tasks defined in a YAML configuration file. Sequence together variousIt allows for sequential and conditional execution of tasks defined in-line, bash scripts, python, javascript, or anything available in your terminal!
+Sequence is a flexible job execution tool designed to manage and run a series of tasks defined in a YAML configuration file. Sequence together conditional execution of tasks defined in-line, bash scripts, python, javascript, or anything available in your terminal!
+
+```shell
+» sequence --config config.yml
+
+2024/01/19 12:34:45 execute : 'Job 1'
+Hello Exit Status 1! # exit 1 -- triggers error handler
+
+2024/01/19 12:34:47 execute : 'Job 1' : error_handler 'handle_job_1_error'
+Job 1 failed, handling error.. # handles error
+
+2024/01/19 12:34:47 error : 'Job 1' : exit status 1
+2024/01/19 12:34:47 skip : 'Job 2' : skip is true # skips jobs
+2024/01/19 12:34:47 pass : 'Job 3' : depends_on 'Job 1' # job dependency
+2024/01/19 12:34:47 execute : 'Job 4'
+This will run..
+```
 
 ## Features
 
@@ -48,7 +64,7 @@ jobs:
     skip: false
 
   - name: "Job 2"
-    command: "echo 'I will not run..'"
+    command: "node hello_world.js"
     exit_on_error: true
     error_handler: "error_handler"
     depends_on: ["Job 1"] # Won't run, depends on Job 1
