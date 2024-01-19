@@ -1,6 +1,6 @@
 ![](./cover.png)
 
-Sequence is a flexible job execution tool designed to manage and run a series of tasks defined in a YAML configuration file. It allows for sequential and conditional execution of tasks (bash, python, javascript, anything available in the terminal!), making it an ideal choice for automating workflows.
+Sequence is a flexible job execution tool designed to manage and run a series of tasks defined in a YAML configuration file. Sequence together variousIt allows for sequential and conditional execution of tasks defined in-line, bash scripts, python, javascript, or anything available in your terminal!
 
 ## Features
 
@@ -36,14 +36,14 @@ Sequence is a flexible job execution tool designed to manage and run a series of
     go build -o sequence ./cmd/sequence
     ```
 
-### Configuration
+### Example Configuration
 
 Define your jobs and their properties in a YAML file. Below is a template of how the configuration should look:
 
 ```yaml
 jobs:
   - name: "Job 1"
-    command: "echo 'Hello World! && exit 1'"
+    command: "echo 'Hello World!' && exit 1"
     exit_on_error: false
     skip: false
 
@@ -52,12 +52,15 @@ jobs:
     exit_on_error: true
     error_handler: "error_handler"
     depends_on: ["Job 1"] # Won't run, depends on Job 1
-    skip: false
 
 error_handlers:
   - name: "error_handler"
-    command: "echo 'Uh oh an error occured...'"
+    command: "echo 'handling an error..'"
 ```
+
+> [!NOTE]  
+> See [example.yaml](./example.yaml) for a more verbose example..
+
 
 ### Running Sequence
 

@@ -1,0 +1,21 @@
+jobs:
+  - name: "Job 1"
+    command: "sleep 2 && echo 'Hello Exit Status 1!' && exit 1"
+    exit_on_error: false
+    error_handler: "handle_job_1_error"
+    skip: false
+
+  - name: "Job 2"
+    command: "echo 'This will not run...'"
+    skip: true
+
+  - name: "Job 3"
+    command: "echo 'I will not run either..'"
+    depends_on: ["Job 1"] # Won't run, depends on Job 1
+
+  - name: "Job 4"
+    command: "echo 'This will run..'"
+
+error_handlers:
+  - name: "handle_job_1_error"
+    command: "echo 'Job 1 failed, handling error..'"
