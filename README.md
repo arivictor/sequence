@@ -5,17 +5,20 @@ Sequence is a flexible job execution tool designed to manage and run a series of
 ```shell
 » sequence --config config.yml
 
-2024/01/19 12:34:45 execute : 'Job 1'
-Hello Exit Status 1! # exit 1 -- triggers error handler
+2024/01/19 12:49:28 execute : 'Job 1'
+Hello Exit Status 1!
 
-2024/01/19 12:34:47 execute : 'Job 1' : error_handler 'handle_job_1_error'
-Job 1 failed, handling error.. # handles error
+2024/01/19 12:49:30 execute : 'Job 1' : error_handler 'handle_job_1_error'
+Job failed, handling error..
 
-2024/01/19 12:34:47 error : 'Job 1' : exit status 1
-2024/01/19 12:34:47 skip : 'Job 2' : skip is true # skips jobs
-2024/01/19 12:34:47 pass : 'Job 3' : depends_on 'Job 1' # job dependency
-2024/01/19 12:34:47 execute : 'Job 4'
+2024/01/19 12:49:30 error : 'Job 1' : exit status 1
+2024/01/19 12:49:30 skip : 'Job 2' : skip is true
+2024/01/19 12:49:30 pass : 'Job 3' : depends_on 'Job 1'
+2024/01/19 12:49:30 execute : 'Job 4'
 This will run..
+
+2024/01/19 12:49:30 execute : 'Job 4' : success_handler 'handle_job_4_success'
+Job 4 succeeded, handling success..
 ```
 
 ## Features
