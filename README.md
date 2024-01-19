@@ -52,7 +52,7 @@ Job 4 succeeded, handling success..
 3. Build the application:
 
     ```bash
-    go build -o sequence ./cmd/sequence
+    go build -o sequence .
     ```
 
 ### Configuration Schema
