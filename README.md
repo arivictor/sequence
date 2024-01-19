@@ -90,7 +90,7 @@ error_handlers:
 To execute the jobs as per your configuration file (e.g., `config.yaml`), use the following command:
 
 ```bash
-./sequence -config ./config.yaml
+./sequence --config ./config.yaml
 ```
 
 > [!NOTE]  
