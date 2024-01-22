@@ -1,4 +1,4 @@
-![](./cover.png)
+# Sequence
 
 Sequence is a versatile automation framework designed to seamlessly integrate and orchestrate scripts and code snippets written in various languages. It serves as a powerful tool to connect disparate sequences of code, enabling the creation of sophisticated, cohesive automation workflows. 
 
@@ -37,7 +37,7 @@ If it can run in the terminal, you can sequence it!
 3. Build the application:
 
     ```bash
-    go build -o sequence .
+    go build -o sequence ./cmd/cli
     ```
 
 ### Configuration Schema
@@ -46,24 +46,20 @@ Define your jobs and their properties in a YAML file. Below is a template of how
 
 ```yaml
 jobs:
-  - name: "Job 1"
+  - name: "Say Hello"
     command: "echo 'Hello World!' && exit 1"
     exit_on_error: false # quits the process on error
-    on_error: "handle_err"
-    on_success: "handle_success"
+    success_hook: "some handler"
+    error_hook: "some handler"
     skip: false
 
-  - name: "Job 2"
+  - name: "Run JavaScript"
     command: "node hello_world.js"
-    depends_on: ["Job 1"] # Won't run, depends on Job 1
+    depends_on: ["Job 1"] # Won't run, depends on the first job
 
-success_handlers:
-    - name: "handle_success"
-      command: "echo 'handling success..'"
-
-error_handlers:
-  - name: "handle_err"
-    command: "echo 'handling an error..'"
+hooks:
+  - name: "some handler"
+    command: "echo 'handling success..'"
 ```
 
 > [!NOTE]  
@@ -75,11 +71,12 @@ error_handlers:
 To execute the jobs as per your configuration file (e.g., `config.yaml`), use the following command:
 
 ```bash
-./sequence --config ./config.yaml
+./sequence --workflow workflow.yaml
 ```
 
 > [!NOTE]  
-> Filepaths defined in jobs are executed relative from where the command is executed.
+> 1. Filepaths defined in jobs are executed relative from where the command is executed.
+> 2. Workflows will move to the next job even if the job fails, you must explicity set `exit_on_error` to `true` if you wish the workflow to fail hard.
 
 ## Contributing
 
