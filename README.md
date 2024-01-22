@@ -61,7 +61,7 @@ hooks:
 ```
 
 > [!NOTE]  
-> See [example.yaml](./example.yaml) for a more verbose example..
+> See [example.yaml](./cmd/cli/example.yaml) for a more verbose example..
 
 
 ### Running Sequence
