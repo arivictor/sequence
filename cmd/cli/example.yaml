@@ -1,0 +1,18 @@
+jobs:
+  - name: "Query Database"
+    command: "mysql -u root -p1234 -e 'SELECT * FROM users;'"
+    exit_on_error: false
+    error_hook: "handle_error"
+
+  - name: "Skippable Job"
+    command: "echo 'I will not run..'"
+    skip: true
+
+  - name: "Run Python Script"
+    command: "python3 do_thing.py"
+    depends_on:
+      - "Query Database"
+
+hooks:
+  - name: "handle_error"
+    command: "echo 'failed, handling error..'"
