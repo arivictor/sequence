@@ -1,10 +1,6 @@
 # Sequence
 
-Sequence is a versatile automation framework designed to seamlessly integrate and orchestrate scripts and code snippets written in various languages. It serves as a powerful tool to connect disparate sequences of code, enabling the creation of sophisticated, cohesive automation workflows. 
-
-If it can run in the terminal, you can sequence it!
-
-![screenshot](./screenshot.png)
+Sequence is a versatile automation framework designed to seamlessly integrate and orchestrate scripts and code snippets written in various languages. It serves as a powerful tool to connect disparate sequences of code, enabling the creation of sophisticated, cohesive automation workflows. If it can run in the terminal, you can sequence it!
 
 ## Features
 
@@ -13,6 +9,8 @@ If it can run in the terminal, you can sequence it!
 - **Conditional Execution**: Define dependencies among jobs, ensuring that certain jobs run only after their dependencies have executed successfully.
 - **Job Skipping**: Flexibly skip certain jobs without removing them from the configuration, allowing for dynamic adjustments of the job sequence.
 - **Exit Control**: Control the continuation or termination of the sequence when a job fails, based on the `exit_on_error` attribute.
+
+![screenshot](./screenshot.png)
 
 ## Getting Started
 
