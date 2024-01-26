@@ -10,9 +10,12 @@ jobs:
 
   - name: "Run Python Script"
     command: "python3 do_thing.py"
+    success_hook: "success_hook"
     depends_on:
       - "Query Database"
 
 hooks:
   - name: "handle_error"
     command: "echo 'failed, handling error..'"
+  - name: "success_hook"
+    command: "echo 'success, handling..'"
