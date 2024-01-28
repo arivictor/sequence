@@ -2,6 +2,13 @@
 
 Sequence is a versatile automation framework designed to seamlessly integrate and orchestrate scripts and code snippets written in various languages. It serves as a powerful tool to connect disparate sequences of code, enabling the creation of sophisticated, cohesive automation workflows. If it can run in the terminal, you can sequence it!
 
+## Quick Start
+```shell
+go install github.com/yourusername/your-repo-name/cmd/cli@latest
+```
+>[!NOTE]
+>Prefer to build it? Check out the [Getting Started]() section.
+
 ## Features
 
 - **Job Execution**: Execute a series of jobs defined in a structured YAML file.
