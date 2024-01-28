@@ -5,6 +5,7 @@ Sequence is a versatile automation framework designed to seamlessly integrate an
 ## Quick Start
 ```shell
 go install github.com/yourusername/your-repo-name/cmd/cli@latest
+sequence --workflow workflow.yaml
 ```
 >[!NOTE]
 >Prefer to build it? Check out the [Getting Started](https://github.com/arivictor/sequence/blob/main/README.md#getting-started) section.
